@@ -87,6 +87,3 @@ movies.each do |x|
 end
 
 #tree.load("./lib/movies.txt")
-
-binding.pry
-""
