@@ -4,34 +4,35 @@ require 'byebug'
 
 class BinarySearchTree
   
-  attr_accessor :root
+  attr_accessor :root, :path, :tree
 
   def initialize
     @root = nil
     @current = nil
     @depth = 0
+    @path = nil
   end
 
-  def insert(score)
+  def insert(score, title)
     #base case zero nodes in tree
     if @root.nil?
-      @root = Node.new(score)
+      @root = Node.new(score, title)
     else
       #base case one node in tree
       if @root.left.nil? && @root.right.nil?
           if score < @root.score
-            @root.left = Node.new(score)
+            @root.left = Node.new(score, title)
           else
-            @root.right = Node.new(score)
+            @root.right = Node.new(score, title)
           end
           return
       end
       #base case two nodes in tree
       if @root.right == nil && score > @root.score
-        @root.right = Node.new(score)
+        @root.right = Node.new(score, title)
         return
       elsif @root.left == nil && score < @root.score
-        @root.left = Node.new(score)
+        @root.left = Node.new(score, title)
         return
       end
 
@@ -40,16 +41,52 @@ class BinarySearchTree
 
       if score < @root.score
         @root = @root.left
-        insert(score)
+        insert(score, title)
       elsif score > @root.score
         @root = @root.right
         #binding.pry
-        insert(score)
+        insert(score, title)
       end
     end
   end
+
+  # def include?(score)
+  #   if score == @root.score
+  #     return true
+  #   else
+  #     if score < @root.score
+  #     @root = @root.left.score
+  #     include?(score)
+  #     else
+  #     @root = @root.right.score
+  #     include?(score)
+  #     end
+  #   end
+  # end
+
+  # def load(path)
+  #   movies = []
+  #   movies = IO.readlines(path)
+  #   movies.each do |x|
+  #   movie_score = x[0..1]
+  #   movie_title = x[4..-1]
+  #   tree.insert(movie_score, movie_title)
+  #   end
+  # end
+  
 end
 
 tree = BinarySearchTree.new
-scores = [33, 55, 21, 99, 44, 31, 77, 36, 47, 62, 100, 1, 3, 5, 7, 9, 11, 13]
-scores.each { |x| tree.insert(x) }
+
+movies = []
+movies = IO.readlines("./lib/movies.txt")
+movies.each do |x|
+  movie_score = x[0..1]
+  movie_title = x[4..-1]
+  tree.insert(movie_score, movie_title)
+end
+
+#tree.load("./lib/movies.txt")
+
+binding.pry
+""

@@ -66,4 +66,15 @@ class DateNightTest < Minitest::Test
     assert_equal 100, tree.root.right.score
   end
 
+  def test_include_method
+    tree = BinarySearchTree.new
+    scores = [33, 55, 21, 99, 44, 31, 77, 36, 47, 62, 100]
+    scores.each { |x| tree.insert(x) }
+    tree.include?(55)
+    #binding.pry
+
+    assert true, tree.include?(score)
+  end
+  
+
 end
