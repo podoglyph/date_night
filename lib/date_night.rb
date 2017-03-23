@@ -3,22 +3,17 @@ require 'pry'
 require 'byebug'
 
 class BinarySearchTree
-  #the Node class should only need to access the score passed into BinarySearchTree as well as the root to determine @left @right
+  
   attr_accessor :root
 
   def initialize
-    @root = nil #this is the first score
-    #@scores = [] #this represents every score that's passed in'
-    @current = nil #this holds the current score being passed around
+    @root = nil
+    @current = nil
     @depth = 0
   end
 
   def insert(score)
-    if 99 == score
-    #  binding.pry
-    end
     #base case zero nodes in tree
-    #byebug
     if @root.nil?
       @root = Node.new(score)
     else
@@ -35,21 +30,20 @@ class BinarySearchTree
       if @root.right == nil && score > @root.score
         @root.right = Node.new(score)
         return
-      end
-
-      if @root.left == nil && score < @root.score
+      elsif @root.left == nil && score < @root.score
         @root.left = Node.new(score)
         return
       end
 
       #three or more nodes in tree
       #binding.pry
-      if score < @root.left.score
+
+      if score < @root.score
         @root = @root.left
         insert(score)
-      else
+      elsif score > @root.score
         @root = @root.right
-       # binding.pry
+        #binding.pry
         insert(score)
       end
     end
@@ -57,5 +51,5 @@ class BinarySearchTree
 end
 
 tree = BinarySearchTree.new
-    scores = [33, 55, 21, 99]
-    scores.each { |x| tree.insert(x) }
+scores = [33, 55, 21, 99, 44, 31, 77, 36, 47, 62, 100, 1, 3, 5, 7, 9, 11, 13]
+scores.each { |x| tree.insert(x) }
