@@ -60,10 +60,10 @@ class DateNightTest < Minitest::Test
 
   def test_recursive_insertion
     tree = BinarySearchTree.new
-    scores = [33, 55, 21, 99]
+    scores = [33, 55, 21, 99, 44, 31, 77, 36, 47, 62, 100]
     scores.each { |x| tree.insert(x) }
     #binding.pry
-    assert_equal 99, tree.root.right.score
+    assert_equal 100, tree.root.right.score
   end
 
 end
